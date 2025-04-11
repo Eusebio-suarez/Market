@@ -18,7 +18,7 @@ body{
     align-items: center;
     color: #fff;
     background-color: #222222;
-    border:solid 1.5px #169976;
+    border:solid 2px #169976;
     border-radius: 7px;
     padding: 15px;
 }
@@ -65,3 +65,26 @@ button{
 button:hover{
     background-color: #D4C000;
 }
+
+.carrito{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.product{
+    border-radius: 10px;
+    background-color:#ffffff;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.product>img{
+    width: 100px;
+    height: 100px;
+}  
