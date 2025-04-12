@@ -145,20 +145,65 @@ const Container = document.querySelector(".container")
 
 //cointenedor carrito
 const carrito = document.querySelector(".carrito")
-function añadirCarrito(id){
-    let product = document.createElement("div")
-    product.classList.add("product")
-    product.innerHTML=`
-    <img src="${products[id].img}" alt=${products[id].name}">
-    <h3 >nombre ${products[id].name}<h3>
-    <p>${products[id].descrption}<p>
-    `
-    carrito.appendChild(product)
+
+
+//lista de productos en el carrito
+let carProducts = []
+
+//funcion para añadir al carrito
+function addCar(id) {
+    if (carProducts.includes(id)) {
+        updateProduct(id, 1);
+    } else {
+        carProducts.push(id);
+        let amount = 1;
+
+        // Creamos el contenedor del producto
+        let product = document.createElement("div");
+        product.classList.add("product");
+        product.id = `product-${id}`; // ID único basado en ID del producto
+
+        // Establecemos el contenido HTML
+        product.innerHTML = `
+            <img src="${products[id].img}" alt="${products[id].name}">
+            <h3>Nombre: ${products[id].name}</h3>
+            <p>Cantidad:</p>
+            <p class="amount">${amount}</p>
+            <p class="price" data-price="${products[id].price}">$${products[id].price.toFixed(2)}</p>
+            <div>
+                <button type="button" onclick="updateProduct(${id}, -1)" class="btnProduct">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#ff0000" class="icon icon-tabler-filled icon-tabler-arrow-badge-left"><path d="M17 6h-6a1 1 0 0 0 -.78 .375l-4 5a1 1 0 0 0 0 1.25l4 5a1 1 0 0 0 .78 .375h6a1 1 0 0 0 .669 -1.619l-3.501 -4.375l3.5 -4.375a1 1 0 0 0 -.78 -1.625z" /></svg>
+                </button>
+                <button type="button" onclick="updateProduct(${id}, 1)" class="btnProduct">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#0091ff" class="icon icon-tabler-filled icon-tabler-arrow-badge-right"><path d="M7 6l-.112 .006a1 1 0 0 0 -.669 1.619l3.501 4.375l-3.5 4.375a1 1 0 0 0 .78 1.625h6a1 1 0 0 0 .78 -.375l4 -5a1 1 0 0 0 0 -1.25l-4 -5a1 1 0 0 0 -.78 -.375h-6z" /></svg>
+                </button>
+            </div>
+        `;
+        carrito.appendChild(product);
+    }
 }
 
+
+// actualizar carrito
+function updateProduct(id, number) {
+    let product = document.getElementById(`product-${id}`);
+    let amountEl = product.querySelector(".amount");
+    let priceEl = product.querySelector(".price");
+
+    let priceBase = parseFloat(priceEl.getAttribute("data-price"));
+    let currentAmount = parseInt(amountEl.textContent);
+    let newAmount = currentAmount + number;
+
+    if (newAmount < 1) return;
+    amountEl.textContent = newAmount;
+    priceEl.textContent = `$${(priceBase * newAmount).toFixed(2)}`;
+}
+
+
+
+// funcion para renderizar productos
 function renderProducts() {
     products.forEach((element,index) => {
-        let contador=0
         let card = document.createElement(`div`)
         card.classList.add("card")
         card.innerHTML=`
@@ -166,8 +211,7 @@ function renderProducts() {
            <h3>${element.name}</h3>
            <p id ="description">${element.descrption}<p>
            <p>$ ${element.price}<p>
-           <button type="button" onclick="añadirCarrito(${index})">Añadir al carrito</button>`
-           contador++
+           <button type="button" onclick="addCar(${index})">Añadir al carrito</button>`
         Container.appendChild(card)
     });
 }
