@@ -152,10 +152,12 @@ let carProducts = []
 
 //funcion para añadir al carrito
 function addCar(id) {
-    if (carProducts.includes(id)) {
+    const exist = carProducts.some(product => product.id === id)
+    if (exist) {
         updateProduct(id, 1);
     } else {
-        carProducts.push(id);
+        let price = products[id].price
+        carProducts.push({id:id,price:price,amount:1});
         let amount = 1;
 
         // Creamos el contenedor del producto
@@ -167,8 +169,10 @@ function addCar(id) {
         product.innerHTML = `
             <img src="${products[id].img}" alt="${products[id].name}">
             <h3>Nombre: ${products[id].name}</h3>
-            <p>Cantidad:</p>
-            <p class="amount">${amount}</p>
+            <div class="amounts">
+                <p>Cantidad:</p>
+                <p class="amount">${amount}</p>
+            </div>
             <p class="price" data-price="${products[id].price}">$${products[id].price.toFixed(2)}</p>
             <div>
                 <button type="button" onclick="updateProduct(${id}, -1)" class="btnProduct">
@@ -179,8 +183,11 @@ function addCar(id) {
                 </button>
             </div>
         `;
-        carrito.appendChild(product);
+        carrito.prepend(product);
+        updateCar()
     }
+    console.log(carProducts);
+    
 }
 
 
@@ -197,6 +204,12 @@ function updateProduct(id, number) {
     if (newAmount < 1) return;
     amountEl.textContent = newAmount;
     priceEl.textContent = `$${(priceBase * newAmount).toFixed(2)}`;
+    const productInCart = carProducts.find(p => p.id === id);
+    if (productInCart) {
+        productInCart.price = priceBase * newAmount;
+        productInCart.amount +=number
+    }
+    updateCar()
 }
 
 
@@ -215,4 +228,31 @@ function renderProducts() {
         Container.appendChild(card)
     });
 }
+
+// funcion para mostrar la informacion del carrito
+function Car() {
+    let total = document.createElement("div")
+    total.classList.add("total")
+    total.innerHTML=`
+    <p id="products"><p>
+    <p id ="totalPrice">¡El carrito está vacío, ve a comprar!</p>`
+    carrito.appendChild(total)
+}
+
+// funcion para actializar el carrito despues de agregar productos
+function updateCar() {
+    let amountProducts = document.getElementById("products");
+    let totalPrice = document.getElementById("totalPrice");
+    // asar reduce para acumular el total
+    let amount = carProducts.reduce((counter, product) => counter += product.amount, 0);
+    // actualizamos el conteo de productos
+    amountProducts.textContent = `Productos: ${amount}`;
+    let price = carProducts.reduce((counter,product) => counter += product.price, 0)
+    // actualizar el precio total
+    totalPrice.textContent=`Precio Total : $${price.toFixed(2)}`
+}
+
+// inicializar el carrido vacio
+Car()
+// renderizar los productos
 renderProducts()
