@@ -146,6 +146,18 @@ const Container = document.querySelector(".container")
 //cointenedor carrito
 const carrito = document.querySelector(".carrito")
 
+// Botón para activar el carrito
+const btnCar = document.getElementById("btnCar")
+
+// cambiar la opacidad de el carrito
+btnCar.addEventListener("click", () => {
+    if(carrito.style.opacity==="0"){
+        carrito.style.opacity="1"
+    }
+    else{
+        carrito.style.opacity="0"
+    }
+})
 
 //lista de productos en el carrito
 let carProducts = []

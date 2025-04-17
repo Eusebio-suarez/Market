@@ -1,76 +1,132 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
-body{
+
+body {
     width: 98vw;
     height: 98vh;
-    background-color: #66D2CE;
+    background-color: #f9f9f9; 
     font-family: "Oswald", sans-serif;
     display: flex;
 }
-.container{
+
+header {
+    width: 100%;
+    height: 60px;
+    background-color: #003049;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 10px;
+}
+
+header ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header li {
+    display: flex;
+    align-items: center;
+}
+
+header button {
+    background: none;
+    border: none;
+    width: auto;
+    margin-left: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header button svg {
+    width: 100%;
+    height: 100%;
+}
+
+header button:hover {
+    background: none;
+    transition: all 0.3s;
+    transform: scale(1.2);
+}
+
+.container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
 }
-.card{
+
+.card {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: #fff;
-    background-color: #222222;
-    border:solid 2px #169976;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     border-radius: 7px;
     padding: 15px;
 }
 
-#description{
+.card h3 {
+    color: #333333;
+}
+
+.card p {
+    color: #555555;
+}
+
+#description {
     max-width: 140px;
     margin: 0;
     padding: 0;
-    color: rgb(255, 255, 255);
+    color: #888888;
     opacity: 0;
     transition: all 0.7s;
     text-align: center;
 }
 
-img{
+img {
     border-radius: 10px;
 }
 
-img:hover{
+img:hover {
     scale: 105%;
 }
 
-p{
+p {
     margin: 3px;
     padding: 0;
 }
 
-.card:hover #description{
+.card:hover #description {
     opacity: 1;
 }
 
-.card>p{
-    color: #FFB300
+.card > p {
+    color: #1f618d;
 }
 
-
-button{
+button {
     width: 110px;
     height: 30px;
-    background-color: #F1C40F;
+    font-weight: 500;
+    background-color: #27ae60;
+    color: #f0f0f0;
     border-radius: 8px;
 }
 
-button:hover{
-    background-color: #D4C000;
+button:hover {
+    background-color: #219150
 }
 
 .carrito {
-    width:300px;
+    width: 300px;
     min-height: 230px;
-    background-color: #fff;
+    background-color: #ffffff;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -81,12 +137,12 @@ button:hover{
     top: 10px;
     right: 10px;
     z-index: 1;
+    opacity: 0;
 }
 
-
-.product{
+.product {
     border-radius: 10px;
-    background-color:#ffffff;
+    background-color: #ffffff;
     min-width: 190px;
     max-width: 190px;
     min-height: 190px;
@@ -95,46 +151,46 @@ button:hover{
     flex-direction: column;
     align-items: center;
     text-align: center;
-    box-shadow: 0px 10px 20px;
+    box-shadow: 0px 10px 20px rgba(0,0,0,0.15);
     font-size: 12px;
 }
 
-.product>img{
+.product > img {
     width: 50px;
     height: 50px;
-}  
+}
 
-.amounts{
+.amounts {
     display: flex;
 }
 
-.btnProduct{
+.btnProduct {
     min-width: 50px;
-    max-width:50px;
+    max-width: 50px;
     margin-bottom: 10px;
-    background:none;
+    background: none;
     cursor: pointer;
     border: none;
     padding: 10px;
 }
 
-.btnProduct:hover{
-    background-color: rgb(255, 255, 255);
+.btnProduct:hover {
+    background-color: #f0f0f0;
     scale: 109%;
 }
 
-.price{
-    color: #169976;
+.price {
+    color: #1f618d;
 }
 
-.total{
+.total {
     margin: 10px;
     text-align: center;
-    background-color: #35816d;
+    background-color: #003049;
     border-radius: 6px;
     color: #fff;
 }
 
-span{
-    background-color: #D4C000;
+.amounts {
+    color: #444444;
 }
