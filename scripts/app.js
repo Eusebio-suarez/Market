@@ -202,7 +202,6 @@ function addCar(id) {
     
 }
 
-
 // actualizar carrito
 function updateProduct(id, number) {
     let product = document.getElementById(`product-${id}`);
@@ -214,6 +213,9 @@ function updateProduct(id, number) {
     let newAmount = currentAmount + number;
 
     if (newAmount < 1) return;
+    if (newAmount > products[id].stock){
+        swal("Error","No hay mas unidades diponibles","error")
+    }else{
     amountEl.textContent = newAmount;
     priceEl.textContent = `$${(priceBase * newAmount).toFixed(2)}`;
     const productInCart = carProducts.find(p => p.id === id);
@@ -222,9 +224,8 @@ function updateProduct(id, number) {
         productInCart.amount +=number
     }
     updateCar()
+    }
 }
-
-
 
 // funcion para renderizar productos
 function renderProducts() {
